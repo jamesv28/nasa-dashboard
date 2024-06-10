@@ -6,7 +6,22 @@ function httpGetAllLaunches(req, res) {
 
 function httpAddNewLaunch(req, res) {
   const launch = req.body;
+  if (
+    !launch.mission ||
+    !launch.rocket ||
+    !launch.launchDate ||
+    !launch.destination
+  ) {
+    return res.status(400).json({
+      error: "Missing required fields",
+    });
+  }
   launch.launchDate = new Date(launch.launchDate);
+  if (String(launch.launchDate) === "Invalid Date") {
+    return res.status(400).json({
+      error: "Invalid Launch Date",
+    });
+  }
   addNewLaunch(launch);
 
   return res.status(201).json(launch);

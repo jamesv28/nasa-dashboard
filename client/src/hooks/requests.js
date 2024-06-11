@@ -31,12 +31,11 @@ async function httpSubmitLaunch(launch) {
 
 async function httpAbortLaunch(id) {
   try {
-    console.log("in the try block");
-    await fetch(`${api_url}/launches/${id}`, {
+    return await fetch(`${api_url}/launches/${id}`, {
       method: "delete",
     });
   } catch (err) {
-    console.log(`Error occurred: ${err}`);
+    console.log(err);
     return {
       ok: false,
     };
